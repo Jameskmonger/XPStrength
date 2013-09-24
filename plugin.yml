@@ -1,0 +1,8 @@
+name: XPStrength
+main: org.jamesmonger.XPStrength.XPStrength
+version: 2.0
+
+commands:
+  xpbonus:
+    description: Uses your XP to modify your hits.
+    usage: /<command>
