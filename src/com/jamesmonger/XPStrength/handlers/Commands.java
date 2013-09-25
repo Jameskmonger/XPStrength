@@ -12,8 +12,7 @@ public class Commands implements CommandExecutor
 {
 
 	@SuppressWarnings("unused")
-	private XPStrength plugin; // pointer to your main class, not required if
-								// you don't need methods from the main class
+	private XPStrength plugin;
 
 	public Commands(XPStrength plugin)
 	{
@@ -42,7 +41,7 @@ public class Commands implements CommandExecutor
 					}
 					else
 					{
-						if (Events.player_toggled.get(p.getName()) == false)
+						if (XPStrength.player_toggled.get(p.getName()) == false)
 						{
 							if (Bonuses.plugin_options.get("xp_drain") == true)
 							{
@@ -55,7 +54,7 @@ public class Commands implements CommandExecutor
 								Languages.sendMessage(p, Languages
 										.getLine("BONUS_NOW_ON_NODRAIN"));
 							}
-							Events.player_toggled.put(p.getName(), true);
+							XPStrength.player_toggled.put(p.getName(), true);
 						}
 						else
 						{
@@ -69,7 +68,7 @@ public class Commands implements CommandExecutor
 								Languages.sendMessage(p, Languages
 										.getLine("BONUS_NOW_OFF_NODRAIN"));
 							}
-							Events.player_toggled.put(p.getName(), false);
+							XPStrength.player_toggled.put(p.getName(), false);
 						}
 					}
 				}
