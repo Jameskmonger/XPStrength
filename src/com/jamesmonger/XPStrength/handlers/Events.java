@@ -37,6 +37,26 @@ public class Events implements Listener
 	}
 
 	@EventHandler
+	public void onExpChange(PlayerExpChangeEvent event)
+	{
+		Player player = event.getPlayer();
+		if (XPStrength.levelCap > -1)
+		{
+			if (event.getAmount() > 0)
+			{
+				if (player.getLevel() >= XPStrength.levelCap)
+				{
+					if (!player.hasPermission("xpstrength.bypassCap"))
+					{
+						event.setAmount(0);
+						player.setExp(0.0F);
+					}
+				}
+			}
+		}
+	}
+
+	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent e)
 	{
 		Entity damager = e.getDamager();
@@ -54,20 +74,20 @@ public class Events implements Listener
 					int damage = 0;
 					if (damageChance > 51)
 					{
-						for (Entry<Integer, Integer> entry : Bonuses.plugin_bonuses_start
+						for (Entry<Integer, Integer> entry : Settings.plugin_bonuses_start
 								.entrySet())
 						{
 							int key = entry.getKey();
 							int value = entry.getValue();
-							if (Bonuses.plugin_bonuses_max.get(key) != null)
+							if (Settings.plugin_bonuses_max.get(key) != null)
 							{
 								if (level >= value)
 								{
-									if (Bonuses.plugin_bonuses_max.get(key) == -1)
+									if (Settings.plugin_bonuses_max.get(key) == -1)
 									{
 										damage = (int) (e.getDamage() + value);
 									}
-									else if (level <= Bonuses.plugin_bonuses_max
+									else if (level <= Settings.plugin_bonuses_max
 											.get(key))
 									{
 										damage = (int) (e.getDamage() + value);
@@ -81,7 +101,7 @@ public class Events implements Listener
 						damage = (int) e.getDamage();
 					}
 					e.setDamage((double) damage);
-					if (Bonuses.plugin_options.get("xp_drain") == true)
+					if (XPStrength.xpDrain == true)
 					{
 						ExperienceManager expMan = new ExperienceManager(p);
 						int xpChance = random.nextInt(100);
@@ -111,7 +131,7 @@ public class Events implements Listener
 	public void onLevelChange(PlayerLevelChangeEvent e)
 	{
 		Player p = e.getPlayer();
-		for (Entry<Integer, Integer> entry : Bonuses.plugin_bonuses_start
+		for (Entry<Integer, Integer> entry : Settings.plugin_bonuses_start
 				.entrySet())
 		{
 			int key = entry.getKey();
@@ -129,7 +149,7 @@ public class Events implements Listener
 												.replace("%lvl%", "" + 20)
 												.replace(
 														"%bns%",
-														Bonuses.getNameForDamage(Bonuses.plugin_bonuses_start
+														Settings.getNameForDamage(Settings.plugin_bonuses_start
 																.get(20))));
 					}
 				}
@@ -146,14 +166,14 @@ public class Events implements Listener
 														"" + e.getNewLevel())
 												.replace(
 														"%bns%",
-														Bonuses.getNameForDamage(Bonuses.plugin_bonuses_start.get(e
+														Settings.getNameForDamage(Settings.plugin_bonuses_start.get(e
 																.getNewLevel()))));
 					}
 				}
 				break;
 			}
 		}
-		if (p.getLevel() < Bonuses.lowestLevel
+		if (p.getLevel() < Settings.lowestLevel
 				&& XPStrength.player_toggled.get(p.getName()) == true)
 		{
 			if (p.hasPermission("xpstrength.bonus"))
@@ -161,7 +181,7 @@ public class Events implements Listener
 				Languages.sendMessage(
 						p,
 						Languages.getLine("TOO_LOW").replace("%lvl%",
-								"" + Bonuses.lowestLevel));
+								"" + Settings.lowestLevel));
 			}
 			XPStrength.player_toggled.put(p.getName(), false);
 		}

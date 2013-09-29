@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.jamesmonger.XPStrength.XPStrength;
-import com.jamesmonger.XPStrength.util.Bonuses;
+import com.jamesmonger.XPStrength.util.Settings;
 import com.jamesmonger.XPStrength.util.Languages;
 
 public class Commands implements CommandExecutor
@@ -34,16 +34,16 @@ public class Commands implements CommandExecutor
 				Player p = (Player) sender;
 				if (p.hasPermission("xpstrength.bonus"))
 				{
-					if (p.getLevel() < Bonuses.lowestLevel)
+					if (p.getLevel() < Settings.lowestLevel)
 					{
 						Languages.sendMessage(p, Languages.getLine("TOO_LOW")
-								.replace("%lvl%", "" + Bonuses.lowestLevel));
+								.replace("%lvl%", "" + Settings.lowestLevel));
 					}
 					else
 					{
 						if (XPStrength.player_toggled.get(p.getName()) == false)
 						{
-							if (Bonuses.plugin_options.get("xp_drain") == true)
+							if (XPStrength.xpDrain == true)
 							{
 								Languages
 										.sendMessage(p, Languages
@@ -58,7 +58,7 @@ public class Commands implements CommandExecutor
 						}
 						else
 						{
-							if (Bonuses.plugin_options.get("xp_drain") == true)
+							if (XPStrength.xpDrain == true)
 							{
 								Languages.sendMessage(p, Languages
 										.getLine("BONUS_NOW_OFF_DRAIN"));

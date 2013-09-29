@@ -5,7 +5,7 @@ import java.io.*;
 import org.bukkit.entity.Player;
 
 import com.jamesmonger.XPStrength.XPStrength;
-import com.jamesmonger.XPStrength.util.Bonuses;
+import com.jamesmonger.XPStrength.util.Settings;
 import com.jamesmonger.XPStrength.util.Languages;
 
 public class AccountManager
@@ -99,12 +99,12 @@ public class AccountManager
 				Languages.sendMessage(player,
 						Languages.getLine("NO_MORE_PERMISSION"));
 			}
-			if (player.getLevel() < Bonuses.lowestLevel)
+			if (player.getLevel() < Settings.lowestLevel)
 			{
 				Languages.sendMessage(
 						player,
 						Languages.getLine("TOO_LOW").replace("%lvl%",
-								"" + Bonuses.lowestLevel));
+								"" + Settings.lowestLevel));
 				XPStrength.player_toggled.put(player.getName(), false);
 			}
 			else

@@ -12,12 +12,10 @@ import java.util.Map;
 
 import com.jamesmonger.XPStrength.XPStrength;
 
-public class Bonuses
+public class Settings
 {
-
 	public static int lowestLevel = Integer.MAX_VALUE;
 
-	public static Map<String, Boolean> plugin_options = new HashMap<String, Boolean>();
 	public static Map<Integer, Integer> plugin_bonuses_start = new HashMap<Integer, Integer>();
 	public static Map<Integer, Integer> plugin_bonuses_max = new HashMap<Integer, Integer>();
 
@@ -25,6 +23,8 @@ public class Bonuses
 	{
 		try
 		{
+			XPStrength.xpDrain = true;
+			XPStrength.levelCap = -1;
 			File file = new File(xps.getDataFolder(), "config.txt");
 			if (!file.exists())
 			{
@@ -34,20 +34,26 @@ public class Bonuses
 				BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 				bw.write("xp_drain : true");
 				bw.newLine();
-				plugin_options.put("xp_drain", true);
+				
+				bw.write("level_cap : -1");
+				bw.newLine();
+				
 				bw.write("30 : 2 : 39");
 				bw.newLine();
 				plugin_bonuses_start.put(30, 2);
 				plugin_bonuses_max.put(39, 39);
 				lowestLevel = 30;
+				
 				bw.write("40 : 3 : 49");
 				bw.newLine();
 				plugin_bonuses_start.put(40, 2);
 				plugin_bonuses_max.put(40, 49);
+				
 				bw.write("50 : 4 : -1");
 				bw.newLine();
 				plugin_bonuses_start.put(50, 2);
 				plugin_bonuses_max.put(50, -1);
+				
 				bw.flush();
 				bw.close();
 			}
@@ -60,8 +66,11 @@ public class Bonuses
 					String[] tokens = l.split(" : ");
 					if (tokens[0].equals("xp_drain"))
 					{
-						plugin_options.put("xp_drain",
-								Boolean.parseBoolean(tokens[1]));
+						XPStrength.xpDrain = Boolean.parseBoolean(tokens[1]);
+					}
+					else if(tokens[0].equals("level_cap"))
+					{
+						XPStrength.levelCap = Integer.parseInt(tokens[1]);
 					}
 					else
 					{
@@ -81,7 +90,7 @@ public class Bonuses
 						}
 					}
 				}
-				br.close();// Close the reader
+				br.close();
 			}
 		}
 		catch (IOException ioe)
