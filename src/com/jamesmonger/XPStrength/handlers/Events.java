@@ -46,7 +46,7 @@ public class Events implements Listener
 			{
 				if (player.getLevel() >= XPStrength.levelCap)
 				{
-					if (!player.hasPermission("xpstrength.bypassCap"))
+					if (!player.hasPermission("xpstrength.bypassCap") && !player.hasPermission("xpstrength.bypass.cap"))
 					{
 						event.setAmount(0);
 						player.setExp(0.0F);
@@ -103,15 +103,18 @@ public class Events implements Listener
 					e.setDamage((double) damage);
 					if (XPStrength.xpDrain == true)
 					{
-						ExperienceManager expMan = new ExperienceManager(p);
-						int xpChance = random.nextInt(100);
-						if (xpChance > 0 && xpChance < 51)
+						if (!p.hasPermission("xpstrength.bypass.drain"))
 						{
-							expMan.changeExp(-damage);
-						}
-						else if (xpChance == 99)
-						{
-							expMan.changeExp(-(damage * 2));
+							ExperienceManager expMan = new ExperienceManager(p);
+							int xpChance = random.nextInt(100);
+							if (xpChance > 0 && xpChance < 51)
+							{
+								expMan.changeExp(-damage);
+							}
+							else if (xpChance == 99)
+							{
+								expMan.changeExp(-(damage * 2));
+							}
 						}
 					}
 				}
