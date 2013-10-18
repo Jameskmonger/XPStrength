@@ -101,6 +101,7 @@ public class Events implements Listener
 						damage = (int) e.getDamage();
 					}
 					e.setDamage((double) damage);
+					
 					if (XPStrength.xpDrain == true)
 					{
 						if (!p.hasPermission("xpstrength.bypass.drain"))

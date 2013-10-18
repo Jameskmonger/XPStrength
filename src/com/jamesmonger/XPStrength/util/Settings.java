@@ -25,6 +25,7 @@ public class Settings
 		{
 			XPStrength.xpDrain = true;
 			XPStrength.levelCap = -1;
+			XPStrength.drainRate = 1;
 			File file = new File(xps.getDataFolder(), "config.txt");
 			if (!file.exists())
 			{
@@ -36,6 +37,9 @@ public class Settings
 				bw.newLine();
 				
 				bw.write("level_cap : -1");
+				bw.newLine();
+				
+				bw.write("drain_rate : 1");
 				bw.newLine();
 				
 				bw.write("30 : 2 : 39");
@@ -71,6 +75,10 @@ public class Settings
 					else if(tokens[0].equals("level_cap"))
 					{
 						XPStrength.levelCap = Integer.parseInt(tokens[1]);
+					}
+					else if(tokens[0].equals("drain_rate"))
+					{
+						XPStrength.drainRate = Integer.parseInt(tokens[1]);
 					}
 					else
 					{
