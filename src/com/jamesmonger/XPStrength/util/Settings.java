@@ -19,7 +19,7 @@ public class Settings
 	public static Map<Integer, Integer> plugin_bonuses_start = new HashMap<Integer, Integer>();
 	public static Map<Integer, Integer> plugin_bonuses_max = new HashMap<Integer, Integer>();
 
-	public static void loadOptionsAndBonuses(XPStrength xps)
+	public static void loadSettings(XPStrength xps)
 	{
 		try
 		{

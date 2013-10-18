@@ -45,7 +45,7 @@ public class XPStrength extends JavaPlugin
 		{
 			e.printStackTrace();
 		}
-		Settings.loadOptionsAndBonuses(this);
+		Settings.loadSettings(this);
 		Languages.loadLanguages(this);
 		
 		for(Player player : this.getServer().getOnlinePlayers())
