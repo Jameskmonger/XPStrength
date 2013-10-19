@@ -106,15 +106,20 @@ public class Events implements Listener
 					{
 						if (!p.hasPermission("xpstrength.bypass.drain"))
 						{
-							ExperienceManager expMan = new ExperienceManager(p);
-							int xpChance = random.nextInt(100);
-							if (xpChance > 0 && xpChance < 51)
+							for(int i = 0; i < damage; i++)
 							{
-								expMan.changeExp(-damage);
-							}
-							else if (xpChance == 99)
-							{
-								expMan.changeExp(-(damage * 2));
+								int currentDamageDealt = XPStrength.player_damage_dealt.get(p.getName());
+								currentDamageDealt++;
+								
+								if(currentDamageDealt == XPStrength.drainRate)
+								{
+									XPStrength.player_damage_dealt.put(p.getName(), 0);
+									p.setTotalExperience(p.getTotalExperience() - 1);
+								}
+								else
+								{
+									XPStrength.player_damage_dealt.put(p.getName(), currentDamageDealt);
+								}
 							}
 						}
 					}

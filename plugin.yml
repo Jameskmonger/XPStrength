@@ -1,6 +1,6 @@
 name: XPStrength
 main: com.jamesmonger.XPStrength.XPStrength
-version: 2.5
+version: 2.6
 
 commands:
   xpbonus:

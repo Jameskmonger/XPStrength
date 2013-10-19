@@ -21,7 +21,7 @@ public class XPStrength extends JavaPlugin
 	public static int drainRate;
 	
 	public static Map<String, Boolean> player_toggled = new HashMap<String, Boolean>();
-	public static Map<String, Integer> player_hearts_dealt = new HashMap<String, Integer>();
+	public static Map<String, Integer> player_damage_dealt = new HashMap<String, Integer>();
 	public static AccountManager accountManager;
 
 	public void onEnable()
